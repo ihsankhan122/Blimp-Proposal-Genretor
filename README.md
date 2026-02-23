@@ -1,92 +1,118 @@
-# Blimp Marketing Agency – AI Proposal/Audit/Content Calendar/Admin Agent (n8n)
+# Blimp Marketing Agency – AI Agent (Proposal / Audit / Content Calendar / Admin) | n8n Workflow
 
 This repository contains an **n8n chat-based AI agent workflow** that automatically generates:
 
-- ✅ **Marketing Proposal**
-- ✅ **Digital Audit Report**
-- ✅ **30-Day Content Calendar**
+- ✅ Marketing **Proposal**
+- ✅ Digital **Audit Report**
+- ✅ 30-Day **Content Calendar**
 - ✅ **Admin outputs** (emails, follow-ups, meeting agenda, onboarding checklist, simple reports)
 
-It works by receiving a chat message, extracting key details (client name, budget, links, etc.), routing to the correct task, generating content using an LLM (Groq OpenAI-compatible API), and exporting the final output as an **HTML file**.
+It works by receiving a chat message, extracting key client details (name, budget, links, goal, etc.), routing to the correct task, generating content using an LLM (Groq OpenAI-compatible API), and exporting the final output as an **HTML file**.
 
 ---
 
-## What this workflow does (simple)
+## ✅ What This Workflow Does (Simple Explanation)
 
-1. A user sends a message in chat (natural language or JSON).
-2. The workflow extracts:
-   - task type (proposal / audit / content_calendar / admin)
-   - client details (name, industry, goal, budget, links, email)
-3. A **Switch** node routes the request to the correct branch.
-4. The workflow calls the LLM API (Groq) to generate output.
-5. Output is saved as **HTML file** using “Convert to File”.
-
----
-
-## Workflow Overview (Nodes)
-
-### 1) `When chat message received`
-- Trigger node (LangChain Chat Trigger).
-- Starts workflow when you send a message to the chat endpoint.
-
-### 2) `Code in JavaScript`
-- Parses the chat input.
-- Detects task automatically:
-  - If message contains words like `audit` → task = audit
-  - If contains `calendar` → task = content_calendar
-  - If contains `email/admin` or email address → task = admin
-  - Otherwise default = proposal
-- Extracts fields like: client name, budget, website link, timeline, etc.
-
-### 3) `Switch`
-Routes based on:
-- `proposal`
-- `audit`
-- `content_calendar`
-- `admin`
-
-### 4) Knowledge nodes
-Each branch has a `(Blimp Knowledge)` Set node that provides:
-- `blimp_services`
-- `pricing_rules`
-- `terms`
-- `tone`
-- `blimp_website` (in proposal branch)
-
-### 5) HTTP Request nodes (LLM generation)
-Each branch hits Groq API (`/openai/v1/chat/completions`) using OpenAI-style payload:
-
-- `http_Proposal` → generates proposal format
-- `HTTP Request (Audit)1` → generates audit report format
-- `HTTP Request (Calender))` → generates 30-day calendar table
-- `HTTP Request (Admin)` → generates admin task output format
-
-### 6) Extract nodes
-After LLM response, the workflow extracts text from:
-- `choices[0].message.content`
-
-### 7) File Content nodes
-Cleans up output for file generation.
-
-### 8) Convert to File nodes
-Creates HTML files:
-- `Client - proposal.html`
-- `Client - Audit.html`
-- `Client - calender.html`
-- `Client - admin.html`
+1. You send a message in chat (normal English/Urdu/roman Urdu or JSON).
+2. Workflow detects the task:  
+   - `proposal` / `audit` / `content_calendar` / `admin`
+3. It extracts details like:
+   - Client name, email, industry, goal, budget, links, timeline
+4. It calls the AI model through **Groq API**.
+5. It generates professional output in English.
+6. It converts the response into a downloadable **HTML file**.
 
 ---
 
-## Requirements
+## 🧠 Node-by-Node Overview
 
-- **n8n** (self-hosted or cloud)
-- Groq API key (OpenAI-compatible endpoint)
-- Optional: n8n Credentials manager for storing API keys securely
+### 1) When chat message received
+- Starts the workflow when a chat message is received (Chat Trigger).
+
+### 2) Code in JavaScript
+- Reads the message and extracts:
+  - `task`, `client_name`, `client_email`, `industry`, `goal`, `budget`, `timeline`, `services_needed`, `client_links`
+- Auto-detects task type based on keywords.
+
+### 3) Switch
+- Routes the workflow into the correct path:
+  - **Proposal**
+  - **Audit**
+  - **Content Calendar**
+  - **Admin**
+
+### 4) (Blimp Knowledge) Set Nodes
+- Injects Blimp fixed details:
+  - Services
+  - Pricing Rules
+  - Terms
+  - Tone
+  - Website (https://www.blimp.pk)
+
+### 5) HTTP Request Nodes (Groq AI Call)
+- Sends prompt to Groq OpenAI-compatible endpoint:
+  - `/openai/v1/chat/completions`
+
+### 6) Extract Text Nodes
+- Extracts the AI response from:
+  - `choices[0].message.content`
+
+### 7) File Content Nodes
+- Cleans and prepares content for exporting.
+
+### 8) Convert to File Nodes
+- Outputs HTML file:
+  - `Client - proposal.html`
+  - `Client - Audit.html`
+  - `Client - calender.html`
+  - `Client - admin.html`
 
 ---
 
-## IMPORTANT Security Note (Fix this before using)
-Your workflow JSON currently shows a **hardcoded Groq API key** inside the HTTP headers:
+## ⚙️ Requirements
 
-```json
-"Authorization": "Bearer gsk_..."
+- n8n (cloud or self-hosted)
+- Groq API key (OpenAI-compatible)
+- Optional: GitHub repo for versioning workflow JSON
+
+---
+
+## 🔒 Security (API Key Hidden / Safe Setup)
+
+⚠️ **Never hardcode your API key inside workflow JSON.**  
+Instead, store it in **n8n Credentials**.
+
+### ✅ Recommended Safe Method (n8n Credentials)
+
+1. In n8n go to:  
+   **Credentials → New**
+2. Create: **HTTP Header Auth**
+3. Set:
+   - Header Name: `Authorization`
+   - Header Value: `Bearer YOUR_GROQ_API_KEY`
+4. Attach this credential to all HTTP nodes:
+   - `http_Proposal`
+   - `HTTP Request (Audit)`
+   - `HTTP Request (Calender)`
+   - `HTTP Request (Admin)`
+
+✅ Now your workflow JSON will not contain the key.
+
+---
+
+## ✅ How To Import and Run (Step-by-Step)
+
+### 1) Import the workflow
+- n8n → Workflows → Import → Paste JSON (or upload `workflow.json`)
+
+### 2) Add credentials
+- Create the Groq credential as above
+- Connect it to all HTTP Request nodes
+
+### 3) Activate workflow
+- Click **Active** to enable automation
+
+### 4) Test it
+Send messages like:
+
+**Proposal**
