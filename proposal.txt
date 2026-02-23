@@ -1,0 +1,960 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "255f2bc7-3bdc-4163-93e8-fe643b40eb34",
+              "name": "blimp_services",
+              "value": "SEO, PPC, Social Media Marketing, Web Development, Branding, Content Creation, Video Production, Meta Ads Management",
+              "type": "string"
+            },
+            {
+              "id": "aa3028fb-6263-4df2-be55-b7ed157c3683",
+              "name": "pricing_rules",
+              "value": "Meta Ads management fee 20% of ad spend (minimum budget 100,000 PKR). Packages are customized based on client requirements.",
+              "type": "string"
+            },
+            {
+              "id": "ca2ae6fe-bfd9-430c-9f73-be9281ffdb14",
+              "name": "terms",
+              "value": "50% advance payment, proposal validity 2 weeks, weekly performance reporting, creatives included as per package.",
+              "type": "string"
+            },
+            {
+              "id": "8bae36d7-9566-44f6-aa4a-3fbe0dea74f1",
+              "name": "tone",
+              "value": "Professional, confident, results-focused, agency-style",
+              "type": "string"
+            },
+            {
+              "id": "6c474ea5-5bf4-494b-b799-7d5bdb94d648",
+              "name": "blimp_website",
+              "value": "https://www.blimp.pk",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        -384
+      ],
+      "id": "6bf43597-6497-4a7a-8949-78ed9ca37079",
+      "name": "(Blimp Knowledge)"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1205862d-c04f-4972-a84b-758db126b70b",
+              "name": "proposal_text",
+              "value": "={{ $json.choices[0].message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        448,
+        -384
+      ],
+      "id": "a8a378d4-00a8-409c-a93e-c98296720c41",
+      "name": "Extract Proposal Text"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.task }}",
+                    "rightValue": "proposal",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "6095ff79-4a9b-4f25-a4e2-5e4ee6a4b8ff"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "f6bba7ec-354e-4f2c-91c9-ffc1eab85d44",
+                    "leftValue": "={{ $json.task }}",
+                    "rightValue": "audit",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "a03f6f7f-4cb3-4ec5-b565-670ac8b6f682",
+                    "leftValue": "={{ $json.task }}",
+                    "rightValue": "content_calendar",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "5a4fd2a1-39a0-4b5d-a78b-7a59c86ab573",
+                    "leftValue": "={{ $json.task }}",
+                    "rightValue": "admin",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -224,
+        -128
+      ],
+      "id": "eb3a2a68-4f9d-4e0f-95cf-90013c22af2e",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8363199b-5c97-471f-8b8e-93c9817cd7fe",
+              "name": "blimp_services",
+              "value": "SEO, PPC, Social Media Marketing, Web Development, Branding, Content Creation, Video Production",
+              "type": "string"
+            },
+            {
+              "id": "35c7d8d3-1c4c-4c52-b1cc-5b2b8c9f61d9",
+              "name": "pricing_rules",
+              "value": "Ads management fee 20% of ad spend (minimum budget 100,000 PKR). Packages client requirements ke mutabiq customize honge.",
+              "type": "string"
+            },
+            {
+              "id": "abe8fd4c-bf6b-4b65-a27d-ca3e52c52afa",
+              "name": "terms",
+              "value": "50% advance payment, proposal validity 2 weeks, weekly reporting provided.",
+              "type": "string"
+            },
+            {
+              "id": "b6172a23-c31a-4a01-81dc-de2f66a4aaf5",
+              "name": "tone",
+              "value": "Professional, confident, results-focused",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a4b1aeee-1d20-4519-93f7-aee14072aa8d",
+      "name": "(Blimp Knowledge)1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -672,
+        -96
+      ],
+      "id": "45f98493-fcef-4835-9b1a-83aa58e080f5",
+      "name": "When chat message received",
+      "webhookId": "282685ef-979b-4c70-a648-cb20f27a0adb"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rawInput = ($json.chatInput || \"\").trim();\n\nlet obj = {};\n\n// helper: get first URL\nconst getFirstUrl = (text) => {\n  const m = text.match(/https?:\\/\\/[^\\s]+/i);\n  return m ? m[0].trim() : \"\";\n};\n\n// helper: extract after label (english/urdu/roman)\nconst extractAfter = (text, labels) => {\n  for (const label of labels) {\n    const re = new RegExp(label + \"\\\\s*[:\\\\-،]?\\\\s*(.+)\", \"i\");\n    const m = text.match(re);\n    if (m && m[1]) return m[1].split(\"\\n\")[0].trim();\n  }\n  return \"\";\n};\n\n// helper: extract budget number (150000 / 150,000 / 150k / \"150000 PKR\")\nconst extractBudget = (text) => {\n  const m = text.match(\n    /(?:budget|ad\\s*spend|بجٹ)\\s*[:\\-،]?\\s*([0-9][0-9,\\.]*\\s*(?:k)?)|([0-9][0-9,\\.]*\\s*(?:k)?)\\s*(?:pkr|rs|روپے|rupees)/i\n  );\n  let val = (m && (m[1] || m[2])) ? (m[1] || m[2]) : \"\";\n  val = String(val).replace(/,/g, \"\").trim();\n\n  if (/k$/i.test(val)) {\n    const n = parseFloat(val.replace(/k/i, \"\"));\n    if (!isNaN(n)) val = String(Math.round(n * 1000));\n  }\n  return val;\n};\n\n// helper: extract first email\nconst extractEmail = (text) => {\n  const m = text.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}/i);\n  return m ? m[0] : \"\";\n};\n\n// ============ 1) Try JSON input (if user sends JSON) ============\ntry {\n  const parsed = JSON.parse(rawInput);\n  obj = Array.isArray(parsed) ? parsed[0] : parsed;\n} catch (e) {\n  // ============ 2) Human language parsing ============\n  const emailFound = extractEmail(rawInput);\n\n  // ===== TASK DETECTION (SUPER SAFE) =====\n  // Rule: if email exists OR admin words -> ADMIN\n  if (\n    emailFound ||\n    /(admin|follow\\s*up|follow-up|invoice|meeting|agenda|onboarding|reminder|reply|email)/i.test(rawInput)\n  ) {\n    obj.task = \"admin\";\n  }\n  // calendar\n  else if (/(calendar|content calendar|schedule|post plan|کانٹینٹ کیلنڈر|کیلنڈر)/i.test(rawInput)) {\n    obj.task = \"content_calendar\";\n  }\n  // audit\n  else if (/(audit|review|analysis|آڈٹ|seo audit|social audit)/i.test(rawInput)) {\n    obj.task = \"audit\";\n  }\n  // proposal\n  else if (/(proposal|proposl|offer|quotation|quote|پروپوزل|پراپوزل)/i.test(rawInput)) {\n    obj.task = \"proposal\";\n  }\n  // default safe\n  else {\n    obj.task = \"proposal\";\n  }\n\n  // client name\n  obj.client_name = extractAfter(rawInput, [\n    \"client name\", \"client\", \"company\", \"brand\", \"business\",\n    \"کلائنٹ\", \"کمپنی\", \"برانڈ\", \"بزنس\"\n  ]);\n\n  // IMPORTANT FIX: agar client_name me email aa raha ho to blank kar do\n  if (obj.client_name && obj.client_name.includes(\"@\")) obj.client_name = \"\";\n\n  // email\n  obj.client_email = emailFound;\n\n  // industry\n  obj.industry = extractAfter(rawInput, [\"industry\", \"niche\", \"sector\", \"انڈسٹری\", \"شعبہ\"]);\n\n  // goal\n  obj.goal = extractAfter(rawInput, [\"goal\", \"objective\", \"target\", \"مقصد\", \"ہدف\"]);\n\n  // budget\n  obj.budget = extractBudget(rawInput);\n\n  // timeline\n  obj.timeline = extractAfter(rawInput, [\"timeline\", \"duration\", \"days\", \"مدت\", \"ٹائم لائن\"]);\n  if (!obj.timeline && /30\\s*days?/i.test(rawInput)) obj.timeline = \"30 days\";\n\n  // services\n  obj.services_needed = extractAfter(rawInput, [\n    \"services\", \"services needed\", \"scope\", \"need\",\n    \"سروسز\", \"سروس\", \"کام\"\n  ]);\n\n  // links (label OR first url)\n  obj.client_links =\n    extractAfter(rawInput, [\"website\", \"link\", \"url\", \"ویب سائٹ\", \"لنک\"]) ||\n    getFirstUrl(rawInput);\n\n  // fallback: agar admin task hai aur goal empty hai, to goal me \"Email / Admin Task\" set\n  if (obj.task === \"admin\" && !obj.goal) {\n    obj.goal = \"Admin Task / Email Draft\";\n  }\n}\n\n// ============ Final Normalize Output ============\nreturn [{\n  json: {\n    task: String(obj.task || \"\").toLowerCase().trim(),\n    client_name: obj.client_name || \"\",\n    client_email: obj.client_email || \"\",\n    industry: obj.industry || \"\",\n    goal: obj.goal || \"\",\n    budget: obj.budget || \"\",\n    timeline: obj.timeline || \"30 days\",\n    services_needed: obj.services_needed || \"\",\n    client_links: obj.client_links || \"\"\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -448,
+        -96
+      ],
+      "id": "4d15104d-25c5-45d3-ab7e-bb8409774d4c",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "28f0e688-9572-40fc-8d0b-800d71d7e409",
+              "name": "fileContent",
+              "value": "={{ ($json.proposal_text || \"\")\n  .replace(/^filecontent\\s*=?\\s*/i, \"\")\n  .trim()\n}}\n",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        672,
+        -384
+      ],
+      "id": "fd030480-4253-47a0-81bb-9b3d9ac45927",
+      "name": "File content"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer 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"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  model: \"llama-3.3-70b-versatile\",\n  messages: [\n    {\n      role: \"system\",\n      content: \"You are Blimp Marketing Agency Proposal Agent. Output MUST be professional English. Follow Wakhla-style proposal format (Company Overview, Client Overview, Objective, Scope of Work, Timeline, Investment, Terms, Next Steps). DO NOT invent prices or results. Use ONLY the provided Pricing Rules and Budget (Ad Spend). All currency must be PKR. Always include Blimp website: https://www.blimp.pk/. If any info is missing, list it under 'Required from Client'.\"\n    },\n    {\n      role: \"user\",\n      content:\n        \"Client Name: \" + $json.client_name +\n        \"\\nIndustry: \" + $json.industry +\n        \"\\nGoal: \" + $json.goal +\n        \"\\nBudget (Ad Spend): \" + $json.budget + \" PKR\" +\n        \"\\nTimeline: \" + $json.timeline +\n        \"\\nServices Needed: \" + $json.services_needed +\n        \"\\nClient Links: \" + $json.client_links +\n        \"\\n\\nBlimp Services: \" + $json.blimp_services +\n        \"\\nPricing Rules: \" + $json.pricing_rules +\n        \"\\nTerms: \" + $json.terms +\n        \"\\nTone: \" + $json.tone +\n        \"\\n\\nGenerate proposal in this exact structure:\\n1) Proposal Title + Prepared for\\n2) Company Overview\\n3) Client Overview\\n4) Objective\\n5) Scope of Work (bullets)\\n6) Timeline\\n7) Investment / Pricing (Ad Spend, Management Fee, Total Investment)\\n8) Terms & Conditions\\n9) Next Steps\\n10) Required from Client\"\n    }\n  ],\n  temperature: 0.4\n}) }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        224,
+        -384
+      ],
+      "id": "16021ef3-fb82-42f0-9c74-920b4f8da7ed",
+      "name": "http_Proposal",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "0tB5iks6LSVVwpaJ",
+          "name": "Blimp http Grok"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "html",
+        "binaryPropertyName": "=data",
+        "options": {
+          "fileName": "={{ ($node[\"Code in JavaScript\"].json.client_name || \"Client\").trim() + \" - proposal.html\" }}"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        896,
+        -384
+      ],
+      "id": "1f4d36bf-bc58-44cd-b596-2ecf729ec150",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer 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"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  model: \"llama-3.3-70b-versatile\",\n  messages: [\n    {\n      role: \"system\",\n      content: \"You are Blimp Marketing Agency AI Auditor. Create a professional audit report in English ONLY. DO NOT invent analytics numbers. If data is missing, write: \\\"Not Available – requires client access\\\". Must mention client budget if provided. Keep it actionable. Always include Blimp website https://www.blimp.pk/ in section 8.\"\n    },\n    {\n      role: \"user\",\n      content:\n        \"Client Name: \" + $json.client_name +\n        \"\\nIndustry: \" + $json.industry +\n        \"\\nGoal: \" + $json.goal +\n        \"\\nBudget (PKR): \" + $json.budget +\n        \"\\nWebsite/Social Links: \" + $json.client_links +\n        \"\\nServices Considered: \" + $json.services_needed +\n        \"\\n\\nCreate AUDIT REPORT in this exact structure:\\n1) Business Overview\\n2) Digital Presence Review\\n3) Content Audit\\n4) SEO Basic Review\\n5) Competitor Snapshot\\n6) Key Gaps Identified\\n7) 30 Day Action Plan\\n8) Recommended Services from Blimp (include https://www.blimp.pk/)\\n9) Required Access from Client\\n10) Notes\"\n    }\n  ],\n  temperature: 0.3\n}) }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        224,
+        -192
+      ],
+      "id": "d1e1a891-4d76-4347-b378-0e5727bf1f95",
+      "name": "HTTP Request (Audit)1",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "0tB5iks6LSVVwpaJ",
+          "name": "Blimp http Grok"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1205862d-c04f-4972-a84b-758db126b70b",
+              "name": "audit_text",
+              "value": "={{ $json.choices[0].message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        448,
+        -192
+      ],
+      "id": "c1460b69-40f1-4c3a-85f1-20359a201b9f",
+      "name": "audit_text1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8363199b-5c97-471f-8b8e-93c9817cd7fe",
+              "name": "blimp_services",
+              "value": "SEO, PPC, Social Media Marketing, Web Development, Branding, Content Creation, Video Production",
+              "type": "string"
+            },
+            {
+              "id": "35c7d8d3-1c4c-4c52-b1cc-5b2b8c9f61d9",
+              "name": "pricing_rules",
+              "value": "Ads management fee 20% of ad spend (minimum budget 100,000 PKR). Packages client requirements ke mutabiq customize honge.",
+              "type": "string"
+            },
+            {
+              "id": "abe8fd4c-bf6b-4b65-a27d-ca3e52c52afa",
+              "name": "terms",
+              "value": "50% advance payment, proposal validity 2 weeks, weekly reporting provided.",
+              "type": "string"
+            },
+            {
+              "id": "b6172a23-c31a-4a01-81dc-de2f66a4aaf5",
+              "name": "tone",
+              "value": "Professional, confident, results-focused",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        -192
+      ],
+      "id": "bd859e52-898a-44b6-b818-165c795ef6d3",
+      "name": "(Blimp Knowledge)2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8363199b-5c97-471f-8b8e-93c9817cd7fe",
+              "name": "blimp_services",
+              "value": "SEO, PPC, Social Media Marketing, Web Development, Branding, Content Creation, Video Production",
+              "type": "string"
+            },
+            {
+              "id": "35c7d8d3-1c4c-4c52-b1cc-5b2b8c9f61d9",
+              "name": "pricing_rules",
+              "value": "Ads management fee 20% of ad spend (minimum budget 100,000 PKR). Packages client requirements ke mutabiq customize honge.",
+              "type": "string"
+            },
+            {
+              "id": "abe8fd4c-bf6b-4b65-a27d-ca3e52c52afa",
+              "name": "terms",
+              "value": "50% advance payment, proposal validity 2 weeks, weekly reporting provided.",
+              "type": "string"
+            },
+            {
+              "id": "b6172a23-c31a-4a01-81dc-de2f66a4aaf5",
+              "name": "tone",
+              "value": "Professional, confident, results-focused",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        192
+      ],
+      "id": "a562f4b3-6584-41a1-b487-45badbe75601",
+      "name": "(Blimp Knowledge)3"
+    },
+    {
+      "parameters": {
+        "operation": "html",
+        "options": {
+          "fileName": "={{ $node[\"Code in JavaScript\"].json.client_name }} - Audit.html"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        896,
+        -192
+      ],
+      "id": "7864b9d7-07e1-4583-ad9d-a7fa63c6322f",
+      "name": "Convert to Audit html"
+    },
+    {
+      "parameters": {
+        "operation": "html",
+        "options": {
+          "fileName": "={{ $node[\"Code in JavaScript\"].json.client_name }} - calender.html"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        896,
+        0
+      ],
+      "id": "1ebf946a-fa86-46a1-8a93-3d9ac28d7927",
+      "name": "Convert tocalender html"
+    },
+    {
+      "parameters": {
+        "operation": "html",
+        "options": {
+          "fileName": "={{ $node[\"Code in JavaScript\"].json.client_name }} - admin.html"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        896,
+        192
+      ],
+      "id": "ac89eaf0-ed28-4755-8f59-d2e4f7d02161",
+      "name": "Convert to Admin html"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ad91326f-9a91-4c9f-8cb8-56591a65fb04",
+              "name": "fileContent",
+              "value": "={{ ($json.audit_text || \"\").replace(/^filecontent\\s*=?\\s*/i, \"\").trim() }}\n",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        672,
+        -192
+      ],
+      "id": "f438a43d-9246-41d0-931f-5235f3befc6c",
+      "name": "File content Audit"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ad91326f-9a91-4c9f-8cb8-56591a65fb04",
+              "name": "fileContent",
+              "value": "=={{ ($json.calendar_text || \"\").replace(/^filecontent\\s*=?\\s*/i, \"\").trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        672,
+        0
+      ],
+      "id": "37e0e524-c563-4b8e-a8d6-bd3c8c224b65",
+      "name": "file content calender"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ad91326f-9a91-4c9f-8cb8-56591a65fb04",
+              "name": "fileContent",
+              "value": "={{ ($json.admin_text || \"\").replace(/^filecontent\\s*=?\\s*/i, \"\").trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        672,
+        192
+      ],
+      "id": "5307f77d-0c9c-4cf6-aa8e-6af698bbb374",
+      "name": "file content Admin"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1205862d-c04f-4972-a84b-758db126b70b",
+              "name": "calendar_text",
+              "value": "={{ $json.choices[0].message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        448,
+        0
+      ],
+      "id": "52a2c07c-aa2f-4ec7-a791-c71637169582",
+      "name": "Extract_calender text"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1205862d-c04f-4972-a84b-758db126b70b",
+              "name": "admin_text",
+              "value": "={{ $json.choices[0].message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        448,
+        192
+      ],
+      "id": "a2fe0e66-5741-480f-9ee0-2b7f60817d0e",
+      "name": "Extract admin text"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer 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"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  model: \"llama-3.3-70b-versatile\",\n  messages: [\n    {\n      role: \"system\",\n      content: \"You are Blimp Social Media Content Calendar Agent. Output must be professional English ONLY. Create a practical 30-day content calendar. Include Blimp website https://www.blimp.pk/ once at the end.\"\n    },\n    {\n      role: \"user\",\n      content:\n        \"Client Name: \" + $json.client_name +\n        \"\\nIndustry: \" + $json.industry +\n        \"\\nGoal: \" + $json.goal +\n        \"\\nServices: \" + $json.services_needed +\n        \"\\nPlatforms: Instagram, Facebook\\n\\nCreate a 30-Day Content Calendar in table format:\\nDate | Platform | Post Type | Hook | Post Idea | Caption | Hashtags | CTA\"\n    }\n  ],\n  temperature: 0.4\n}) }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        224,
+        0
+      ],
+      "id": "db967a94-861e-4223-9b13-544bb0a84f82",
+      "name": "HTTP Request (Calender))",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "0tB5iks6LSVVwpaJ",
+          "name": "Blimp http Grok"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer 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"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  model: \"llama-3.3-70b-versatile\",\n  messages: [\n    {\n      role: \"system\",\n      content: \"You are Blimp Admin Tasks Agent. Output must be professional English ONLY. Help with admin tasks: client emails, follow-ups, meeting agenda, onboarding checklist, simple reports. Include Blimp website https://www.blimp.pk/ once at the end.\"\n    },\n    {\n      role: \"user\",\n      content:\n        \"Client Name: \" + $json.client_name +\n        \"\\nTask Requested: \" + $json.goal +\n        \"\\nClient Email: \" + $json.client_email +\n        \"\\nContext/Links: \" + $json.client_links +\n        \"\\n\\nGenerate output in this structure:\\n1) Output Title\\n2) Draft / Content\\n3) Checklist (if applicable)\\n4) Required from Client\"\n    }\n  ],\n  temperature: 0.4\n}) }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        224,
+        192
+      ],
+      "id": "09ea6266-8aea-40fd-bbf5-febd35bbeef9",
+      "name": "HTTP Request (Admin)",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "0tB5iks6LSVVwpaJ",
+          "name": "Blimp http Grok"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "(Blimp Knowledge)": {
+      "main": [
+        [
+          {
+            "node": "http_Proposal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Proposal Text": {
+      "main": [
+        [
+          {
+            "node": "File content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "(Blimp Knowledge)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "(Blimp Knowledge)2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "(Blimp Knowledge)1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "(Blimp Knowledge)3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "(Blimp Knowledge)1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request (Calender))",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "File content": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "http_Proposal": {
+      "main": [
+        [
+          {
+            "node": "Extract Proposal Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request (Audit)1": {
+      "main": [
+        [
+          {
+            "node": "audit_text1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "audit_text1": {
+      "main": [
+        [
+          {
+            "node": "File content Audit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "(Blimp Knowledge)2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request (Audit)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "(Blimp Knowledge)3": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request (Admin)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to Admin html": {
+      "main": [
+        []
+      ]
+    },
+    "File content Audit": {
+      "main": [
+        [
+          {
+            "node": "Convert to Audit html",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "file content calender": {
+      "main": [
+        [
+          {
+            "node": "Convert tocalender html",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "file content Admin": {
+      "main": [
+        [
+          {
+            "node": "Convert to Admin html",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract_calender text": {
+      "main": [
+        [
+          {
+            "node": "file content calender",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract admin text": {
+      "main": [
+        [
+          {
+            "node": "file content Admin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request (Calender))": {
+      "main": [
+        [
+          {
+            "node": "Extract_calender text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request (Admin)": {
+      "main": [
+        [
+          {
+            "node": "Extract admin text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0f1559eaa2403ae0402e5d29db5d6876f8f7c41001326479197fe40159c5a11c"
+  }
+}
